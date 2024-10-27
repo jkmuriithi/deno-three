@@ -25,12 +25,12 @@ function setupWorld() {
   const box = new BasicWorldItem(
     new Mesh(
       new BoxGeometry(1, 1, 1),
-      new MeshPhongMaterial({ color: 0xff0000, shininess: 35 })
+      new MeshPhongMaterial({ color: 0xff0000, shininess: 35 }),
     ),
     (box, dt) => {
       box.rotation.z += 0.001 * dt;
       box.rotation.y += 0.001 * dt;
-    }
+    },
   );
 
   WORLD.add(lightItem, box);

@@ -11,6 +11,6 @@ export const CAMERA = new PerspectiveCamera(
   75,
   globalThis.innerWidth / globalThis.innerHeight,
   1,
-  1000
+  1000,
 );
 export const WORLD = new World();
