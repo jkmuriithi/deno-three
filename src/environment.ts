@@ -62,20 +62,17 @@ export default class Environment {
 export interface Item {
   init: (scene: Scene) => void;
   destroy: (scene: Scene) => void;
-  update?: (dt: number) => void;
+  update: (dt: number) => void;
 }
 
 /** An {@link Item} wrapper around some Object3D with an update function. */
 export class BasicItem<T extends Object3D> implements Item {
   object: T;
-  update?: (dt: number) => void;
+  updateFn?: (object: T, dt: number) => void;
 
   constructor(object: T, updateFn?: (object: T, dt: number) => void) {
     this.object = object;
-
-    if (updateFn) {
-      this.update = (dt) => updateFn(this.object, dt);
-    }
+    this.updateFn = updateFn;
   }
 
   init(scene: Scene): void {
@@ -84,5 +81,9 @@ export class BasicItem<T extends Object3D> implements Item {
 
   destroy(scene: Scene): void {
     scene.remove(this.object);
+  }
+
+  update(dt: number): void {
+    this.updateFn && this.updateFn(this.object, dt);
   }
 }
