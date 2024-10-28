@@ -9,8 +9,7 @@ import {
 } from "three";
 
 import { CAMERA, WORLD } from "./globals.ts";
-
-import { BasicWorldItem } from "./world.ts";
+import { BasicItem } from "./environment.ts";
 
 function setupWorld() {
   CAMERA.position.set(0, 1, 3);
@@ -20,9 +19,9 @@ function setupWorld() {
   light.position.set(5, 5, 5);
   light.lookAt(new Vector3(0, 0, 0));
 
-  const lightItem = new BasicWorldItem(light);
+  WORLD.addObject(light);
 
-  const box = new BasicWorldItem(
+  const box = new BasicItem(
     new Mesh(
       new BoxGeometry(1, 1, 1),
       new MeshPhongMaterial({ color: 0xff0000, shininess: 35 }),
@@ -33,7 +32,7 @@ function setupWorld() {
     },
   );
 
-  WORLD.add(lightItem, box);
+  WORLD.add(box);
 }
 
 let lastTimestamp = performance.now();
@@ -43,11 +42,7 @@ function main() {
   canvas.width = globalThis.innerWidth;
   canvas.height = globalThis.innerHeight;
 
-  const renderer = new WebGLRenderer({
-    canvas,
-    antialias: true,
-    powerPreference: "high-performance",
-  });
+  const renderer = new WebGLRenderer({ canvas, antialias: true });
   renderer.setSize(globalThis.innerWidth, globalThis.innerHeight);
 
   // Handle window resize
