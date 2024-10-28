@@ -15,16 +15,21 @@ function setupWorld() {
   CAMERA.position.set(0, 1, 3);
   CAMERA.lookAt(new Vector3(0, 0, 0));
 
-  const light = new PointLight(0x404040, 250);
-  light.position.set(5, 5, 5);
-  light.lookAt(new Vector3(0, 0, 0));
+  const lightOne = new PointLight(0x404040, 250);
+  lightOne.position.set(5, 5, 5);
+  lightOne.lookAt(new Vector3(0, 0, 0));
 
-  WORLD.addObject(light);
+  const lightTwo = new PointLight(0x404040, 50);
+  lightTwo.position.set(-1, 1, 1);
+  lightTwo.lookAt(new Vector3(0, 0, 0));
+
+  WORLD.addObject(lightOne);
+  WORLD.addObject(lightTwo);
 
   const box = new BasicItem(
     new Mesh(
       new BoxGeometry(1, 1, 1),
-      new MeshPhongMaterial({ color: 0xff0000, shininess: 35 }),
+      new MeshPhongMaterial({ color: 0xff0000, shininess: 70 }),
     ),
     (box, dt) => {
       box.rotation.z += 0.001 * dt;
